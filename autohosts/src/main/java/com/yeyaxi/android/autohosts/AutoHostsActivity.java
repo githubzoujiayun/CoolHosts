@@ -1,4 +1,5 @@
-package com.find.coolhosts;
+package com.yeyaxi.android.autohosts;
+
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -6,8 +7,10 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -39,13 +42,7 @@ import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
-/**
- * AutoHosts - An app for android to update hosts.
- *
- * @author Yaxi Ye
- * @version 1.0.2
- * @since Nov.7.2011
- */
+
 public class AutoHostsActivity extends BaseActivity
 {
 
@@ -81,9 +78,6 @@ public class AutoHostsActivity extends BaseActivity
 		textView2 = (TextView) findViewById(R.id.textView2);
 
         setFont(textView2);
-
-	    // Lookup your LinearLayout assuming its been given
-	    // the attribute android:id="@+id/mainLayout"
 
 
 //			version.setText(getString(R.string.current_ver) + getVersionTask.execute(BaseActivity.PROJECTH));
@@ -164,66 +158,15 @@ public class AutoHostsActivity extends BaseActivity
 		//Handle menu item selection
 		switch (item.getItemId())
 		{
-			case R.id.fix_dns:
-				//Add dialog for DNS
-				AlertDialog.Builder builderDNS = new AlertDialog.Builder(this);
-				builderDNS.setMessage(R.string.dialog_dns);
-//			builderDNS.setCancelable(true);
-				builderDNS.setPositiveButton("OK to Proceed", new DialogInterface.OnClickListener()
-				{
-					@Override
-					public void onClick (DialogInterface dialog, int id)
-					{
-						//Set 3G DNS
-						String[] commands = new String[4];
-						commands[0] = "setprop net.rmnet0.dns1 8.8.8.8";
-						commands[1] = "setprop net.rmnet0.dns2 208.67.220.220";
-
-						//Set DNS
-						commands[2] = "setprop net.dns1 8.8.8.8";
-						commands[3] = "setprop net.dns2 208.67.220.220";
-
-						new CommandRunner(AutoHostsActivity.this, R.string.label_fixingDNS).execute(commands);
-
-						dialog.dismiss();
-					}
-				});
-				builderDNS.setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener()
-				{
-
-					@Override
-					public void onClick (DialogInterface dialog, int which)
-					{
-						dialog.cancel();
-					}
-
-				});
-
-				AlertDialog alertDNS = builderDNS.create();
-				alertDNS.show();
-				break;
-
-			case R.id.add_hosts_entry:
-				//Add dialog for add entry
-
-				//Call another activity to handle this.
-				Intent intent = new Intent(getApplicationContext(), AppendItemActivity.class);
-				this.startActivityForResult(intent, BaseActivity.APPEND_ITEM_REQUEST_CODE);
-
-				break;
-
-			case R.id.revert_blank:
-				taskQueue.clear();
-				addTask(TASK.BACKUP_ENTRIES);
-				addTask(TASK.LOAD_BLANK_FILE);
-				addTask(TASK.DISPLAY_REVERT_MESSAGE);
-				doNextTask();
-				break;
 
 			case R.id.about:
 				//Add dialog for About
 				AlertDialog.Builder builderAbout = new AlertDialog.Builder(this);
-				builderAbout.setMessage(R.string.dialog_about);
+
+                LayoutInflater inflater = getLayoutInflater();
+                View layout = inflater.inflate(R.layout.about,null);
+//				builderAbout.setMessage(R.string.dialog_about);
+                builderAbout.setView(layout);
 				builderAbout.setTitle(R.string.about);
 				builderAbout.setCancelable(true);
 				builderAbout.setPositiveButton("OK", new DialogInterface.OnClickListener()
@@ -243,21 +186,7 @@ public class AutoHostsActivity extends BaseActivity
 
 	}
 
-	@Override
-	protected void onActivityResult (int requestCode, int resultCode, Intent data)
-	{
-		if (resultCode == BaseActivity.APPEND_ITEM_REQUEST_CODE)
-		{
-			Serializable newEntry = data.getSerializableExtra("NewEntry");
-			if (newEntry != null)
-			{
-				addEntryToFile(newEntry.toString(), "newHost");
-				new FileCopier(AutoHostsActivity.this, R.string.addingHostsToFile, true).execute(getExternalCacheDir() + "/newHost", "/system/etc/hosts");
-			}
-		}
 
-		super.onActivityResult(requestCode, resultCode, data);
-	}
 
 	public void loadHostsFromInputStream (InputStream inputStream)
 	{

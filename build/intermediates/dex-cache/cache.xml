@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pre-dex-items>
+
+    <item
+        dex="/home/find/down/AutoHosts-master/autohosts/build/intermediates/pre-dexed/debug/classes-005a63eb4053acd968d1cad0380ddd47ad5f8f7f.jar"
+        jar="/home/find/down/AutoHosts-master/autohosts/build/intermediates/exploded-aar/com.google.android.gms/play-services/4.4.52/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="3dfdf1db5ce5ea2999a5dcde8c8e650b02660059"/>
+    <item
+        dex="/home/find/down/AutoHosts-master/autohosts/build/intermediates/pre-dexed/debug/support-v4-19.0.1-ffa419707c1823a0f3c67b0713880e4ac515c283.jar"
+        jar="/opt/adt-sdk/extras/android/m2repository/com/android/support/support-v4/19.0.1/support-v4-19.0.1.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="587da9a481ffd341d2fa091704489b89845ddacd"/>
+    <item
+        dex="/home/find/down/AutoHosts-master/autohosts/build/intermediates/pre-dexed/debug/classes-e5f510bf379a7ecff8e950764f6658ddfb52b1f2.jar"
+        jar="/home/find/down/AutoHosts-master/autohosts/build/intermediates/exploded-aar/com.actionbarsherlock/actionbarsherlock/4.4.0/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="af64527b748983a75de9c0756e9768b56b240a49"/>
+    <item
+        dex="/home/find/down/AutoHosts-master/autohosts/build/intermediates/pre-dexed/debug/systembartint-1.0.3-45ba4cc57f1a29d84cbfb968daf3cf8163ace17e.jar"
+        jar="/home/find/.gradle/caches/modules-2/files-2.1/com.readystatesoftware.systembartint/systembartint/1.0.3/de4f7404e2f58d8f6e83cb1e85d0c2d6c2987287/systembartint-1.0.3.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="de4f7404e2f58d8f6e83cb1e85d0c2d6c2987287"/>
+
+</pre-dex-items>
