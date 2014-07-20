@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+   tools:context="${relativePackage}.${activityClass}" 
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:fitsSystemWindows="true"
+    android:background="@android:color/background_dark"
+    android:clipToPadding="false">
+    
+     <TextView
+        android:id="@+id/ver"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/terminal_green"
+        android:text="@string/current_ver"/>
+         <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_below="@id/imageView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/linearLayout1">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:textColor="@color/terminal_green"
+            android:layout_height="wrap_content"
+            android:text=""/>
+    </ScrollView>
+
+<LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:gravity="bottom"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/getHosts"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/btn_getHosts"
+            android:textColor="@color/terminal_green"
+            android:gravity="center" />
+        
+        <Button
+            android:id="@+id/setHosts"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/btn_setHosts"
+            android:textColor="@color/terminal_green"
+            android:gravity="center" />
+       
+        <Button
+            android:id="@+id/revertHosts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/btn_revertHosts"
+            android:textColor="@color/terminal_green"
+            android:gravity="center" />
+    </LinearLayout>
+</RelativeLayout>
