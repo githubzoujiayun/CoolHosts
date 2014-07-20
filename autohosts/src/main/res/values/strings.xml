@@ -29,7 +29,8 @@
     <string name="dialog_dns">This DNS setting can affect DNS in the CURRENT NETWORK SESSION (including 3G and WiFi),
         you may need to set DNS again once this network session no longer exists.
     </string>
-    <string name="dialog_about"><b>AutoHosts</b>\nCode From Github\n\Optimized by Find\n\nFollow me SinaWeibo @FindBlog\n\nBlog: <a href="http://www.findspace.name">http://www.findspace.name</a>\n
+    <string name="dialog_about"><b>AutoHosts</b>\nVersion 1.0.3\n\nby ss1271\n\nFollow me @ss1271 on Twitter\n\nThis
+        software is developed under GPLv3.
     </string>
     <string name="dialog_ok">OK</string>
     <string name="dialog_cancel">Cancel</string>

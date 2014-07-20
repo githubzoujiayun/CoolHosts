@@ -20,7 +20,7 @@
     <string name="add_hosts_source">添加 hosts 源</string>
     <string name="about">关于本工具</string>
     <string name="dialog_dns">DNS 设定可以指定当前网络环境所用 DNS（3G/WiFi 均适用），该设定只针对当前网络环境生效，一旦网络环境改变或者断网重连，需重新设定。</string>
-    <string name="dialog_about"><b>AutoHosts</b>\n\n源码来自Github\n\n优化精简By Find\n\n新浪微博：@FindBlog\n\n博客：<a href="http://www.findspace.name">http://www.findspace.name</a></string>
+    <string name="dialog_about"><b>AutoHosts</b>\n\n版本 1.0.3\n\n作者 ss1271\n\n在Twitter上关注@ss1271\n\n本软件遵循 GPLv3 协议.</string>
     <string name="dialog_ok">确认</string>
     <string name="dialog_cancel">取消</string>
     <string name="dialog_title_append">添加 hosts 条目</string>
