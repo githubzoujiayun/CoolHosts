@@ -36,13 +36,15 @@ public class CoolHosts extends Activity {
         boolean root=RootChecker.hasRoot();
         Toast.makeText(this, "root: "+root, Toast.LENGTH_SHORT).show();  
 //        downloadHostsTask.execute(Lib.SOURCE);
-        String vv = Lib.getlocalversion(getExternalCacheDir().toString());
-        System.out.println(vv);
-        if (Lib.setVersion(getExternalCacheDir().toString(),vv)) {
-			System.out.println("ok");
-		}
+//        String vv = Lib.getlocalversion(getExternalCacheDir().toString());
+//        System.out.println(vv);
+//        if (Lib.setVersion(getExternalCacheDir().toString(),vv)) {
+//			System.out.println("ok");
+//		}
     }  
-   
+    public void onResume (){
+    	super.onResume();
+    }
     
     /**DownLoad hosts file*/
     AsyncTask<String, Void, File> downloadHostsTask = new AsyncTask<String, Void, File>() {

@@ -13,8 +13,7 @@ public final class Lib {
 	static final String READ_ERROR="Read Error.";
 	static final String TIMEMARK_HEAD="#+UPDATE_TIME";
 	static final String LOG_NAME="CoolHosts";
-	
-	
+	static String REMOTE_VERSION="";
 	/**Set the local version mark.
 	 * 
 	 * getExternalCacheDir()
@@ -84,8 +83,13 @@ public final class Lib {
 			e.printStackTrace();
 		}
     	return versionText;
-    	
-    	
     }
+	public static void setRemoteVersion(String versionText){
+		REMOTE_VERSION=versionText;
+	}
+	public static String getRemoteVersion(){
+		return REMOTE_VERSION;
+	}
+	
 	
 }

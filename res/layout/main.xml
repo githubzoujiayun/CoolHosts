@@ -1,12 +1,39 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="${relativePackage}.${activityClass}" >
+    <ScrollView
+       android:id="@+id/scrollView"
+       android:layout_width="match_parent"
+       android:layout_height="180dp">
+        <TextView
+            android:id="@+id/console"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="#008000" />
 
-    <TextView
+    </ScrollView>
+	<LinearLayout 
+	    android:id="@+id/buttonpanel"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal">
+	     <Button
+        android:id="@+id/about"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:text="about" />
+	</LinearLayout>
 
-</RelativeLayout>
+	<Button
+	    android:id="@+id/start"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:background="@drawable/start"
+	    android:gravity="center"
+	    android:layout_gravity="center"
+	    android:text="Start" />
+</LinearLayout>

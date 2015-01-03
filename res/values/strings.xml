@@ -2,6 +2,7 @@
 <resources>
 
     <string name="app_name">CoolHosts</string>
-    <string name="hello_world">Hello world!</string>
-
+	<string name="start_button">一键更新</string>
+	<string name="about">关于</string>
+	<string name="help">说明</string>
 </resources>
