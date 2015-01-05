@@ -3,9 +3,6 @@
 		<!-- 点击时的背景图 -->
     <item android:state_pressed="true"  
         android:drawable="@drawable/pressed" />  
-    <!-- 获取焦点时的背景图 -->
-    <item android:state_focused="true"  
-        android:drawable="@drawable/focus" />  
     <!-- 默认的背景图 -->
     <item android:drawable="@drawable/start" />  
 </selector> 

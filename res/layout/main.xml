@@ -1,5 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+     xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"  
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -12,7 +13,7 @@
             android:id="@+id/console"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=""
+            android:text="@string/tempstring"
             android:textColor="#008000" />
 
     </ScrollView>
@@ -20,20 +21,35 @@
 	    android:id="@+id/buttonpanel"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
+	    android:gravity="center"
 	    android:orientation="horizontal">
 	     <Button
         android:id="@+id/about"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="about" />
+        android:layout_margin="20dp"
+        android:text="@string/about" />
+	     <Button
+        android:id="@+id/help"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="@string/help" />
 	</LinearLayout>
 
 	<Button
-	    android:id="@+id/start"
+	    android:id="@+id/onekey"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:background="@drawable/start"
 	    android:gravity="center"
 	    android:layout_gravity="center"
-	    android:text="Start" />
+	    android:text="@string/start_button" />
+	 <LinearLayout
+        android:id="@+id/adLayout"
+        android:layout_below="@id/onekey"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    </LinearLayout>
 </LinearLayout>
