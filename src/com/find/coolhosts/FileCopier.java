@@ -15,14 +15,10 @@ import java.io.Reader;
 public class FileCopier extends AsyncTask<Object, Void, Boolean>
 {
 	private CoolHosts callback;
-	private int completionMessage;
-	private boolean append;
     private static final String TAG = FileCopier.class.getSimpleName();
 
-	public FileCopier (CoolHosts callback, int completionMessage, boolean append)
+	public FileCopier (CoolHosts callback)
 	{
-		this.completionMessage = completionMessage;
-		this.append = append;
 		this.callback = callback;
 	}
 
@@ -49,8 +45,7 @@ public class FileCopier extends AsyncTask<Object, Void, Boolean>
 			while((line = bufferedReader.readLine()) != null)
 				os.writeBytes("echo '" + line + "' >> " + inputs[1] + "\n");
 
-
-			os.writeBytes("mount -o ro,remount -t " + mountLocation[1] + " " + mountLocation[0] + " /system\n");
+			os.writeBytes("chmod 666 /system/etc/hosts\n");
 			os.writeBytes("exit\n");
 			os.flush();
 			os.close();
@@ -105,12 +100,10 @@ public class FileCopier extends AsyncTask<Object, Void, Boolean>
 	@Override
 	protected void onPostExecute (Boolean success)
 	{
-//		if (success)
-//		{
-//			callback.displayCalbackMessage(completionMessage, R.string.append_success);
-//			callback.doNextTask();
-//		} else
-//			callback.displayCalbackErrorMessage(completionMessage);
+		if (success)
+			callback.appendOnConsole(R.string.copysuccess);
+		else
+			callback.appendOnConsole(R.string.copyfailed);
 	}
 
 }

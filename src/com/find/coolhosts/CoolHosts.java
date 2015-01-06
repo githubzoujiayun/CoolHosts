@@ -1,5 +1,6 @@
 package com.find.coolhosts;
 
+
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -13,6 +14,7 @@ import org.apache.http.util.ByteArrayBuffer;
 
 import com.google.android.gms.ads.*;
 
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.net.Uri;
@@ -37,6 +39,7 @@ public class CoolHosts extends Activity {
 	private static final String TAG=CoolHosts.class.getSimpleName();
 	private static final String MY_AD_UNIT_ID="ca-app-pub-8527554614606787/7985243150";
 	private AdView adView;
+	private boolean netState=false;
     @Override  
     public void onCreate(Bundle savedInstanceState) {  
         super.onCreate(savedInstanceState);  
@@ -50,20 +53,14 @@ public class CoolHosts extends Activity {
         
         adView = new AdView(this);
         adView.setAdUnitId(MY_AD_UNIT_ID);
-        adView.setAdSize(AdSize.BANNER);
-        
+        adView.setAdSize(AdSize.SMART_BANNER);
         LinearLayout layout = (LinearLayout)findViewById(R.id.adLayout);
-
-        // 在其中添加adView。
         layout.addView(adView);
-
-        // 启动一般性请求。
-        AdRequest adRequest = new AdRequest.Builder().build();
-//        AdRequest adRequest = new AdRequest.Builder()
-//        .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)       // 模拟器
+//        AdRequest adRequest = new AdRequest.Builder().build();
+        AdRequest adRequest = new AdRequest.Builder()
+        .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)       // 模拟器
 //        .addTestDevice("AC98C820A50B4AD8A2106EDE96FB87D4") // 我的Galaxy Nexus测试手机
-//        .build();
-        // 在adView中加载广告请求。
+        .build();
         adView.loadAd(adRequest);
 //        String vv = Lib.getlocalversion(getExternalCacheDir().toString());
 //        if (Lib.setVersion(getExternalCacheDir().toString(),vv)) {
@@ -99,7 +96,24 @@ public class CoolHosts extends Activity {
 				CoolHosts.this.startActivity(intent);
 			}
 		});
-    	
+    	oneKey.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if(!root){
+					Toast.makeText(CoolHosts.this, R.string.unrooted, Toast.LENGTH_SHORT).show();
+				}else{
+					if(netState){
+						new FileDeleter(CoolHosts.this, R.string.deleteoldhosts);
+						appendOnConsole(R.string.copyingnewhosts);
+						new FileCopier(CoolHosts.this).execute(getExternalCacheDir() + "/hosts", "/system/etc/hosts");
+						oneKey.setBackgroundResource(R.drawable.pressed);
+					}else{
+						Toast.makeText(CoolHosts.this, R.string.neterror, Toast.LENGTH_SHORT).show();
+					}
+					
+				}
+			}
+		});
     }
     /**Update the console textview*/
     public void appendOnConsole(final int ...id ){
@@ -124,7 +138,6 @@ public class CoolHosts extends Activity {
                 URLConnection ucon = url.openConnection();
                 InputStream is = ucon.getInputStream();
                 BufferedInputStream bis = new BufferedInputStream(is);
-
                 ByteArrayBuffer baf = new ByteArrayBuffer(50);
                 int current = 0;
                 while ((current = bis.read()) != -1) {
@@ -147,11 +160,12 @@ public class CoolHosts extends Activity {
         public void onPostExecute(File f) {
             if (f != null) {
                 try {
-                	//
                     Lib.setRemoteVersion(f);
                     console.setText("");
-                    appendOnConsole(getString(R.string.local_version)+Lib.getlocalversion(Lib.HOSTSPATH));
+                    appendOnConsole(getString(R.string.local_version)+Lib.getlocalversion());
                     appendOnConsole(getString(R.string.remote_version)+Lib.getRemoteVersion());
+                    Log.d(TAG, "download success");
+                    netState=true;
                 } catch (IOException ioe) {
                     ioe.printStackTrace();
                 }
