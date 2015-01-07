@@ -28,13 +28,19 @@
 	    android:gravity="center"
 	    android:orientation="horizontal">
 	     <Button
+	    style="?android:attr/buttonBarButtonStyle" 
         android:id="@+id/about"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
+        android:textColor="#ffffff"
+        android:background="@drawable/button"
         android:text="@string/about" />
 	     <Button
+	    style="?android:attr/buttonBarButtonStyle" 
         android:id="@+id/help"
+        android:textColor="#ffffff"
+        android:background="@drawable/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"

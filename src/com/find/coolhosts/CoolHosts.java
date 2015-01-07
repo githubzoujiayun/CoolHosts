@@ -56,11 +56,11 @@ public class CoolHosts extends Activity {
         adView.setAdSize(AdSize.SMART_BANNER);
         LinearLayout layout = (LinearLayout)findViewById(R.id.adLayout);
         layout.addView(adView);
-//        AdRequest adRequest = new AdRequest.Builder().build();
-        AdRequest adRequest = new AdRequest.Builder()
-        .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)       // 模拟器
+        AdRequest adRequest = new AdRequest.Builder().build();
+//        AdRequest adRequest = new AdRequest.Builder()
+//        .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)       // 模拟器
 //        .addTestDevice("AC98C820A50B4AD8A2106EDE96FB87D4") // 我的Galaxy Nexus测试手机
-        .build();
+//        .build();
         adView.loadAd(adRequest);
 //        String vv = Lib.getlocalversion(getExternalCacheDir().toString());
 //        if (Lib.setVersion(getExternalCacheDir().toString(),vv)) {

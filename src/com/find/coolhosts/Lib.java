@@ -31,7 +31,7 @@ public final class Lib {
 			boolean getit=false;
 			while(i<5){
 				tempstr=breader2.readLine();
-				if(tempstr.contains(Lib.TIMEMARK_HEAD)){
+				if(tempstr!=null&&tempstr.contains(Lib.TIMEMARK_HEAD)){
 					versionText=tempstr.substring(Lib.TIMEMARK_HEAD.length()+1);
 					getit=true;
 					break;
