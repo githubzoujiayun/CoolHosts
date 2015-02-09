@@ -31,8 +31,8 @@ public class FileDeleter extends AsyncTask<String, Void, Boolean>
 	{
 		Log.d(TAG, "Result for deleting file (" + callbackMessage + "): " + success);
 		if (success)
-			caller.appendOnConsole(R.string.deleteoldhosts);
+			caller.appendOnConsole(caller.getConsole(),R.string.deleteoldhosts);
 		else
-			caller.appendOnConsole(R.string.deletefailed);
+			caller.appendOnConsole(caller.getConsole(),R.string.deletefailed);
 	}
 }

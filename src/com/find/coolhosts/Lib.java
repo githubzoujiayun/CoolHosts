@@ -10,6 +10,8 @@ import android.util.Log;
 
 public final class Lib {
 	static final String SOURCE="http://www.findspace.name/adds/hosts";
+	static final String REMOTEVERSION="";
+	static final String SOURCE_CH="http://googler.sinaapp.com/coolhostsversion";
 	private static final String TAG=Lib.class.getSimpleName();
 	static final String NOT_EXIST="Don't Exist.";
 	static final String READ_ERROR="Read Error.";
@@ -17,6 +19,16 @@ public final class Lib {
 	static final String LOG_NAME="CoolHosts";
 	static final String HOSTSPATH="/system/etc/hosts";
 	static String REMOTE_VERSION="";
+	static String LOCALCHVERSION="";
+	static String REMOTECHVERSION="";
+	
+	//存在本地文件名
+	static final String HOSTSINCACHE="hosts";
+	static final String CHVERSIONINCACHE="chversion";
+	
+	
+	
+	
     /**Get The local version mark
      * getExternalCacheDir
      * */

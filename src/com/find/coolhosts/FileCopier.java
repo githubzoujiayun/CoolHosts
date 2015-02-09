@@ -101,9 +101,9 @@ public class FileCopier extends AsyncTask<Object, Void, Boolean>
 	protected void onPostExecute (Boolean success)
 	{
 		if (success)
-			callback.appendOnConsole(R.string.copysuccess);
+			callback.appendOnConsole(callback.getConsole(),R.string.copysuccess);
 		else
-			callback.appendOnConsole(R.string.copyfailed);
+			callback.appendOnConsole(callback.getConsole(),R.string.copyfailed);
 	}
 
 }

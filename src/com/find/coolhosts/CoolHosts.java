@@ -24,6 +24,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -33,44 +34,32 @@ public class CoolHosts extends Activity {
   
 	private boolean root;
 	private TextView console;
+	private TextView chversion;
 	private Button oneKey;
 	private Button help;
 	private Button about;
 	private static final String TAG=CoolHosts.class.getSimpleName();
-	private static final String MY_AD_UNIT_ID="ca-app-pub-8527554614606787/7985243150";
-	private AdView adView;
 	private boolean netState=false;
+	private CheckCoolHostsVersion getVersion;
+	public static String CACHEDIR;
     @Override  
     public void onCreate(Bundle savedInstanceState) {  
         super.onCreate(savedInstanceState);  
         setContentView(R.layout.main);  
-        downloadHostsTask.execute(Lib.SOURCE);
-         
+        CACHEDIR=getFilesDir().toString();
+        Log.v(TAG, CACHEDIR);
+        downloadHostsTask.execute(Lib.SOURCE,Lib.HOSTSINCACHE);
         about=(Button)findViewById(R.id.about);
         oneKey=(Button)findViewById(R.id.onekey);
         help=(Button)findViewById(R.id.help);
         console=(TextView)findViewById(R.id.console);
-        
-        adView = new AdView(this);
-        adView.setAdUnitId(MY_AD_UNIT_ID);
-        adView.setAdSize(AdSize.SMART_BANNER);
-        LinearLayout layout = (LinearLayout)findViewById(R.id.adLayout);
-        layout.addView(adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-//        AdRequest adRequest = new AdRequest.Builder()
-//        .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)       // 模拟器
-//        .addTestDevice("AC98C820A50B4AD8A2106EDE96FB87D4") // 我的Galaxy Nexus测试手机
-//        .build();
-        adView.loadAd(adRequest);
-//        String vv = Lib.getlocalversion(getExternalCacheDir().toString());
-//        if (Lib.setVersion(getExternalCacheDir().toString(),vv)) {
-//			System.out.println("ok");
-//		}
+        chversion=(TextView)findViewById(R.id.chversion);
+		getVersion=new CheckCoolHostsVersion(this);
+		checkCHVersion();
     }  
     public void onResume (){
     	super.onResume();
     	root=RootChecker.hasRoot();
-    	  adView.resume();
     	if(!root)
         	Toast.makeText(this, R.string.unrooted, Toast.LENGTH_SHORT).show();
     	about.setOnClickListener(new OnClickListener() {
@@ -91,7 +80,7 @@ public class CoolHosts extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent();
-				intent.setData(Uri.parse("http://www.findspace.name"));
+				intent.setData(Uri.parse("http://www.findspace.name/easycoding/503"));
 				intent.setAction(Intent.ACTION_VIEW);
 				CoolHosts.this.startActivity(intent);
 			}
@@ -104,8 +93,8 @@ public class CoolHosts extends Activity {
 				}else{
 					if(netState){
 						new FileDeleter(CoolHosts.this, R.string.deleteoldhosts);
-						appendOnConsole(R.string.copyingnewhosts);
-						new FileCopier(CoolHosts.this).execute(getExternalCacheDir() + "/hosts", "/system/etc/hosts");
+						appendOnConsole(console,R.string.copyingnewhosts);
+						new FileCopier(CoolHosts.this).execute(CACHEDIR + "/hosts", "/system/etc/hosts");
 						oneKey.setBackgroundResource(R.drawable.pressed);
 					}else{
 						Toast.makeText(CoolHosts.this, R.string.neterror, Toast.LENGTH_SHORT).show();
@@ -116,12 +105,12 @@ public class CoolHosts extends Activity {
 		});
     }
     /**Update the console textview*/
-    public void appendOnConsole(final int ...id ){
+    public void appendOnConsole(TextView textview,final int ...id ){
     	for(int i:id){
     		console.append(getString(i)+"\n");
     	}
     }
-    public void appendOnConsole(final String ...strs){
+    public void appendOnConsole(TextView textview,final String ...strs){
     	for(String tempstr:strs)
     		console.append(tempstr+"\n");
     }
@@ -130,7 +119,7 @@ public class CoolHosts extends Activity {
     
     /**DownLoad hosts file*/
     AsyncTask<String, Void, File> downloadHostsTask = new AsyncTask<String, Void, File>() {
-        @Override
+    	boolean downhosts=false;
         protected File doInBackground(String... params) {
             File f = null;
             try {
@@ -143,8 +132,10 @@ public class CoolHosts extends Activity {
                 while ((current = bis.read()) != -1) {
                     baf.append((byte) current);
                 }
-                System.out.println(getExternalCacheDir());
-                f = new File(getExternalCacheDir(), "hosts");
+                f = new File(CACHEDIR, params[1]);
+                if(params[1].equals(Lib.HOSTSINCACHE)){
+                	downhosts=true;
+                }
                 FileOutputStream fos = new FileOutputStream(f);
                 fos.write(baf.toByteArray());
                 fos.close();
@@ -159,35 +150,49 @@ public class CoolHosts extends Activity {
         @Override
         public void onPostExecute(File f) {
             if (f != null) {
-                try {
-                    Lib.setRemoteVersion(f);
-                    console.setText("");
-                    appendOnConsole(getString(R.string.local_version)+Lib.getlocalversion());
-                    appendOnConsole(getString(R.string.remote_version)+Lib.getRemoteVersion());
-                    Log.d(TAG, "download success");
-                    netState=true;
-                } catch (IOException ioe) {
-                    ioe.printStackTrace();
-                }
+            		try {
+            			if(downhosts){
+            				Lib.setRemoteVersion(f);
+            				console.setText("");
+            				appendOnConsole(console,getString(R.string.local_version)+Lib.getlocalversion());
+            				appendOnConsole(console,getString(R.string.remote_version)+Lib.getRemoteVersion());
+            			}else{
+            				chversion.setText("");
+            				Lib.REMOTECHVERSION=getVersion.getRemoteVersion();
+            				appendOnConsole(chversion, "应用程序本地版本："+Lib.LOCALCHVERSION+"\n最新版本："+Lib.REMOTECHVERSION);
+            				if(!Lib.REMOTECHVERSION.equals(Lib.LOCALCHVERSION)){
+            					AlertDialog.Builder builderAbout = new AlertDialog.Builder(CoolHosts.this);
+            					builderAbout.setMessage(R.string.NeedUpdate);
+            					builderAbout.setTitle(R.string.about);
+            					AlertDialog alertAbout = builderAbout.create();
+            					alertAbout.show();
+            				}
+            			}
+            			Log.d(TAG, "download success");
+            			netState=true;
+            		} catch (IOException ioe) {
+            			ioe.printStackTrace();
+            		}
             }
         }
     };
+    /**检查app的版本
+     * @throws NameNotFoundException */
     
-    @Override
-    public void onPause() {
-      adView.pause();
-      super.onPause();
-    }
-
-
-
-    @Override
-    public void onDestroy() {
-      adView.destroy();
-      super.onDestroy();
-    }
-    
-}  
+	public void checkCHVersion(){
+	    		//获得本地app的版本
+			try {
+				Lib.LOCALCHVERSION=getVersion.getVersionName();
+			} catch (NameNotFoundException e) {
+				e.printStackTrace();
+			}
+			Log.v(TAG, "Local"+Lib.LOCALCHVERSION);
+			downloadHostsTask.execute(Lib.SOURCE_CH,Lib.CHVERSIONINCACHE);
+			
+	}
+	public TextView getConsole(){return console;}
+//	AsyncTask<String, Integer, String>
+}
 
 
 
