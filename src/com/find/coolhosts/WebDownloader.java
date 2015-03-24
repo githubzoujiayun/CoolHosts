@@ -52,6 +52,7 @@ public class WebDownloader extends AsyncTask<String, Void, File>{
     				caller.appendOnConsole(caller.getConsole(),true,caller.getString(R.string.remote_version)+Lib.getRemoteVersion());
         			Log.d(CoolHosts.TAG, "download success");
         			caller.setNetState(true);
+        			caller.doNextTask();
         		} catch (IOException ioe) {
         			ioe.printStackTrace();
         		}

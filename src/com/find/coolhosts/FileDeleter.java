@@ -8,7 +8,7 @@ public class FileDeleter extends AsyncTask<String, Void, Boolean>
 {
 	private CoolHosts caller;
 	private int callbackMessage;
-    private static final String TAG = FileDeleter.class.getSimpleName();
+    private static final String TAG = CoolHosts.TAG;
 
 	public FileDeleter (CoolHosts caller, int callbackMessage)
 	{
@@ -30,9 +30,12 @@ public class FileDeleter extends AsyncTask<String, Void, Boolean>
 	protected void onPostExecute (Boolean success)
 	{
 		Log.d(TAG, "Result for deleting file (" + callbackMessage + "): " + success);
-		if (success)
-			caller.appendOnConsole(caller.getConsole(),true,R.string.deleteoldhosts);
+		if (success){
+//			caller.appendOnConsole(caller.getConsole(),true,R.string.deleteoldhosts);
+		}
 		else
 			caller.appendOnConsole(caller.getConsole(),true,R.string.deletefailed);
+		caller.appendOnConsole(caller.getConsole(),false,R.string.copyingnewhosts);
+		caller.doNextTask();
 	}
 }

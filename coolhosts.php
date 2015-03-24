@@ -1,8 +1,10 @@
 <?php
-echo "http://www.findspace.name/";
+
 $AndroidClientVersion=$_GET["AndroidClientVersion"];
 if($AndroidClientVersion){
-	echo "2.0.3";
+	echo "2.0.4";
+}else{
+	echo "http://www.findspace.name/";
 }
 
 ?>

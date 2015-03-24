@@ -24,7 +24,6 @@ public final class Lib {
 	
 	//存在本地文件名
 	static final String HOSTSINCACHE="hosts";
-	static final String CHVERSIONINCACHE="chversion";
 	
 	
 	
