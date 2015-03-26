@@ -9,7 +9,7 @@ import java.io.IOException;
 import android.util.Log;
 
 public final class Lib {
-	static final String SOURCE="http://www.findspace.name/adds/hosts";
+	static final String SOURCE="http://www.findspace.name/adds/hosts2";
 	static final String REMOTEVERSION="";
 	static final String SOURCE_CH="http://googler.sinaapp.com/coolhostsversion";
 	private static final String TAG=Lib.class.getSimpleName();

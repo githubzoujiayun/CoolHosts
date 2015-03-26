@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.os.Build;
 import android.os.Bundle;  
 import android.annotation.SuppressLint;
 import android.app.Activity;  
@@ -54,8 +55,13 @@ public class CoolHosts extends Activity {
         taskQueue = new LinkedList<TASK>();
         downloadHostsTask=new WebDownloader(CoolHosts.this);
         webView.getSettings().setJavaScriptEnabled(true);//设置使用够执行JS脚本  
-        webView.getSettings().setBuiltInZoomControls(true);//设置使支持缩放  
+        webView.getSettings().setBuiltInZoomControls(false);//设置使支持缩放  
         webView.loadUrl("http://www.findspace.name");  
+//        if(Build.VERSION.SDK_INT >= 19) {
+//	        webView.getSettings().setLoadsImagesAutomatically(true);
+//	    } else {
+//	        webView.getSettings().setLoadsImagesAutomatically(false);
+//	    }
         webView.setWebViewClient(new WebViewClient(){  
             @Override  
             public boolean shouldOverrideUrlLoading(WebView view, String url) {  
