@@ -37,14 +37,15 @@ public class FileCopier extends AsyncTask<Object, Void, Boolean>
 
 			DataOutputStream os = new DataOutputStream(process.getOutputStream());
 			os.writeBytes("mount -o rw,remount -t " + mountLocation[1] + " " + mountLocation[0] + " /system\n");
-
-			bufferedReader = new BufferedReader(getReader(inputs[0]));
-
-			os.writeBytes("echo '' > " + inputs[1] + "\n");
-			String line = null;
-			while((line = bufferedReader.readLine()) != null)
-				os.writeBytes("echo '" + line + "' >> " + inputs[1] + "\n");
-
+			if(inputs[0]!=null){
+				bufferedReader = new BufferedReader(getReader(inputs[0]));
+				String line = null;
+				while((line = bufferedReader.readLine()) != null)
+					os.writeBytes("echo '" + line + "' >> " + inputs[1] + "\n");
+			}else{
+				//empty hosts
+				os.writeBytes("echo '' > " + inputs[1] + "\n");
+			}
 			os.writeBytes("chmod 666 /system/etc/hosts\n");
 			os.writeBytes("exit\n");
 			os.flush();

@@ -4,24 +4,23 @@ package com.find.coolhosts;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.os.Build;
-import android.os.Bundle;  
-import android.annotation.SuppressLint;
-import android.app.Activity;  
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;  
+import android.widget.Toast;
 
 public class CoolHosts extends Activity {  
   
@@ -146,8 +145,10 @@ public class CoolHosts extends Activity {
 		menu.add(0, 1, 0,R.string.help ).setIcon(R.drawable.help);
 		menu.add(0, 2, 1, R.string.about).setIcon(R.drawable.about);
 		menu.add(0,3,2,R.string.updatechversion);
+		menu.add(0,4,3,R.string.emptyhosts);
 		return super.onCreateOptionsMenu(menu);
 	}
+	//
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {//得到被点击的item的itemId
@@ -167,6 +168,10 @@ public class CoolHosts extends Activity {
 			break;
 		case 3:
 			taskQueue.add(TASK.GETCLVERSION);
+			doNextTask();
+			break;
+		case 4:
+			taskQueue.add(TASK.DELETEOLDHOSTS);
 			doNextTask();
 		default:
 			break;
@@ -205,9 +210,9 @@ public class CoolHosts extends Activity {
 			case COPYNEWHOSTS:
 				new FileCopier(CoolHosts.this).execute(CACHEDIR + "/hosts", "/system/etc/hosts");
 				break;
-//			case DELETEOLDHOSTS:
-//				new FileDeleter(CoolHosts.this, R.string.deleteoldhosts).execute(CACHEDIR + "/hosts");
-//				break;
+			case DELETEOLDHOSTS:
+				new FileCopier(CoolHosts.this).execute(null, "/system/etc/hosts");
+				break;
 			case DOWNHOSTS:
 				downloadHostsTask.execute(Lib.SOURCE,Lib.HOSTSINCACHE);
 				break;
