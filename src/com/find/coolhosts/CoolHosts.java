@@ -8,6 +8,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.util.Log;
@@ -95,7 +96,7 @@ public class CoolHosts extends Activity {
 					Toast.makeText(CoolHosts.this, R.string.unrooted, Toast.LENGTH_SHORT).show();
 				}else{
 					if(getNetState()){
-//						taskQueue.add(TASK.DELETEOLDHOSTS);
+						taskQueue.add(TASK.DELETEOLDHOSTS);
 						taskQueue.add(TASK.COPYNEWHOSTS);
 						doNextTask();
 					}else{
@@ -146,6 +147,8 @@ public class CoolHosts extends Activity {
 		menu.add(0, 2, 1, R.string.about).setIcon(R.drawable.about);
 		menu.add(0,3,2,R.string.updatechversion);
 		menu.add(0,4,3,R.string.emptyhosts);
+		menu.add(0,5,4,R.string.customhostsaddress);
+		menu.add(0,6,5,R.string.catHosts);
 		return super.onCreateOptionsMenu(menu);
 	}
 	//
@@ -173,6 +176,13 @@ public class CoolHosts extends Activity {
 		case 4:
 			taskQueue.add(TASK.DELETEOLDHOSTS);
 			doNextTask();
+			break;
+		case 5:
+			Toast.makeText(this, R.string.note, Toast.LENGTH_SHORT).show();
+			break;
+		case 6:
+			catHosts();
+			break;
 		default:
 			break;
 		}
@@ -227,6 +237,11 @@ public class CoolHosts extends Activity {
 			
 			}
 		}
+	}
+	/**cat hosts' content*/
+	public void catHosts(){
+		Intent catIntent=new Intent(CoolHosts.this,CatHosts.class);
+		CoolHosts.this.startActivity(catIntent);
 	}
 	
 }

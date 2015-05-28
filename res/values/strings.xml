@@ -14,9 +14,12 @@
 	<string name="deleteoldhosts">删除旧的hosts文件…</string>
 	<string name="deletefailed">删除旧hosts文件失败</string>
 	<string name="copyingnewhosts">正在复制新的hosts文件…</string>
-	<string name="copysuccess">操作成功！请戳上面的广告支持更新！（点击不会打开任何新窗口！）</string>
+	<string name="copysuccess">操作成功！</string>
 	<string name="copyfailed">Hosts更新失败@_@</string>
 	<string name="neterror">请检查您的网络状态，或者发邮件给我反馈</string>
 	<string name="updatechnote">请到博客去下载更新！</string>
 	<string name="emptyhosts">清空hosts</string>
+	<string name="customhostsaddress">自定义hosts地址</string>
+	<string name="catHosts">查看hosts文件内容</string>
+	<string name="note">该功能正在测试。。。</string>
 </resources>
