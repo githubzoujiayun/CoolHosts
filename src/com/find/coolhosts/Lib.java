@@ -9,9 +9,8 @@ import java.io.IOException;
 import android.util.Log;
 
 public final class Lib {
-	static final String SOURCE="http://www.findspace.name/adds/hosts2";
+	static final String SOURCE="http://googleips-google.stor.sinaapp.com/hosts";
 	static final String REMOTEVERSION="";
-	static final String SOURCE_CH="http://googler.sinaapp.com/coolhostsversion";
 	private static final String TAG=Lib.class.getSimpleName();
 	static final String NOT_EXIST="Don't Exist.";
 	static final String READ_ERROR="Read Error.";

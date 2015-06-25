@@ -7,10 +7,10 @@
 	<string name="help">帮助(显示在应用里面)</string>
 	<string name="updatechversion">检查CoolHosts版本</string>
 	<string name="unrooted">CoolHosts尚未获得设备的Root权限</string>
-	 <string name="dialog_about"><b>CoolHosts</b>\n\n作者 Find\n\n在新浪微博上关注@FindSpace博客\n\n个人博客： www.findspace.name\n\n</string>
+	 <string name="dialog_about"><b>CoolHosts</b>\n\n作者 Find\n\n在新浪微博上关注@FindSpace博客\n\n个人博客： www.findspace.name\n\n邮件： find@findspace.name\n\n</string>
 	<string name="local_version">本地版本：</string>
 	<string name="remote_version">服务器版本：</string>
-	<string name="tempstring"><b>正在获取服务器上的hosts文件…</b>\n如果一直显示该条信息，请检查您的网络连接是否出现了问题</string>
+	<string name="tempstring"><b>正在获取服务器上的hosts文件…</b>若一直显示该信息,请检查网络连接或到博客反馈,为防止恶意抓取,限定了抓取频次.具体请访问博客查看</string>
 	<string name="deleteoldhosts">删除旧的hosts文件…</string>
 	<string name="deletefailed">删除旧hosts文件失败</string>
 	<string name="copyingnewhosts">正在复制新的hosts文件…</string>
@@ -22,4 +22,5 @@
 	<string name="customhostsaddress">自定义hosts地址</string>
 	<string name="catHosts">查看hosts文件内容</string>
 	<string name="note">该功能正在测试。。。</string>
+	<string name="nonewversion">没有发现CoolHosts的新版本。</string>
 </resources>

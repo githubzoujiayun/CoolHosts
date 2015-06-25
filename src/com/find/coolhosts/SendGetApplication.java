@@ -17,6 +17,7 @@ import org.apache.http.impl.client.HttpClients;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 /**发送get请求，getversion=0 || 1 <br>0：只是获取推送页面的网址<br>1:获取最新的版本号<br>返回值：要显示的网页网址以及最新的程序版本*/
 public class SendGetApplication extends AsyncTask<Integer, Void, String> {
@@ -74,7 +75,11 @@ public class SendGetApplication extends AsyncTask<Integer, Void, String> {
 				caller.setWebview(ans[0]);
 			else{
 				Lib.REMOTECHVERSION=ans[1];
-				caller.showVersion();
+				if(!Lib.REMOTECHVERSION.equals(Lib.LOCALCHVERSION))
+					caller.showVersion();
+				else{
+					Toast.makeText(caller, R.string.nonewversion, Toast.LENGTH_SHORT).show();
+				}
 			}
 			caller.doNextTask();
 		}

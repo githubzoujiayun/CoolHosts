@@ -17,9 +17,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,7 +35,8 @@ public class CoolHosts extends Activity {
 	public static String CACHEDIR;
 	private WebView webView;
 	private WebDownloader downloadHostsTask;
-	
+    private ProgressBar progressBar;
+
 	public CheckCoolHostsVersion getVersion;
 	
 	private enum TASK
@@ -51,7 +54,9 @@ public class CoolHosts extends Activity {
         Log.v(TAG, CACHEDIR);
         oneKey=(Button)findViewById(R.id.onekey);
         console=(TextView)findViewById(R.id.console);
+        progressBar = (ProgressBar)findViewById(R.id.index_progressBar);
         webView = (WebView) findViewById(R.id.webView1);  
+        
         taskQueue = new LinkedList<TASK>();
         downloadHostsTask=new WebDownloader(CoolHosts.this);
         webView.getSettings().setJavaScriptEnabled(true);//设置使用够执行JS脚本  
@@ -65,6 +70,7 @@ public class CoolHosts extends Activity {
         webView.setWebViewClient(new WebViewClient(){  
             @Override  
             public boolean shouldOverrideUrlLoading(WebView view, String url) {  
+            	 progressBar.setVisibility(View.VISIBLE);
                 view.loadUrl(url);// 使用当前WebView处理跳转  
                 return true;//true表示此事件在此处被处理，不需要再广播  
             }  
@@ -73,15 +79,43 @@ public class CoolHosts extends Activity {
                     String description, String failingUrl) {  
                 Toast.makeText(CoolHosts.this, "Oh no! " + description, Toast.LENGTH_SHORT).show();  
             }  
-        });  
+//            public void onProgressChanged(WebView view, int newProgress) {
+//                Log.e("newProgress", newProgress+"");
+//                progressBar.setProgress(newProgress);
+//                if(newProgress >= 100){
+//                    progressBar.setVisibility(View.GONE);
+//                }
+//                super.onProgressChanged(view, newProgress);
+//            }
+//            
+        });
+        
+
+        webView.setWebChromeClient(new WebChromeClient(){
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                Log.e("newProgress", newProgress+"");
+                progressBar.setProgress(newProgress);
+                if(newProgress >= 100){
+                    progressBar.setVisibility(View.GONE);
+                }
+//                super.onProgressChanged(view, newProgress);
+            }
+            
+        });
         try {
         	getVersion=new CheckCoolHostsVersion(CoolHosts.this);
 			getVersion.getLocalVersion();
 		} catch (NameNotFoundException e) {
 			e.printStackTrace();
 		}
+        
+        
+        
+        
         taskQueue.add(TASK.DOWNHOSTS);
         taskQueue.add(TASK.GETURL);
+        taskQueue.add(TASK.GETCLVERSION);
         doNextTask();
     }  
     public void onResume (){

@@ -4,17 +4,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-	<WebView  
-        android:id="@+id/webView1"  
-        android:layout_width="match_parent"  
-        android:layout_height="370dip"/> 
+    
+ <ProgressBar
+        android:id="@+id/index_progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:progress="0"
+        android:secondaryProgress="0"
+        android:visibility="visible" />
+    <WebView
+        android:id="@+id/webView1"
+        android:layout_width="match_parent"
+        android:layout_height="360dip" />
+
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="60dip"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:layout_marginTop="5dp">
+        android:layout_marginTop="5dp" >
 
         <TextView
             android:id="@+id/console"
@@ -28,8 +38,8 @@
     <Button
         android:id="@+id/onekey"
         android:layout_width="wrap_content"
+        android:layout_height="70dip"
         android:layout_gravity="center"
-		android:layout_height="70dip"        
         android:background="@drawable/btn_background"
         android:gravity="center"
         android:text="" />
