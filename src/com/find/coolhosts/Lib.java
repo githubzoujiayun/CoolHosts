@@ -9,7 +9,8 @@ import java.io.IOException;
 import android.util.Log;
 
 public final class Lib {
-	static final String SOURCE="http://googleips-google.stor.sinaapp.com/hosts2";
+	/**Hosts源地址*/
+	static String SOURCE="http://googleips-google.stor.sinaapp.com/hosts";
 	static final String HOSTS_VERSION_URL="http://googleips-google.stor.sinaapp.com/updateTime";
 	static final String REMOTEVERSION="";
 	private static final String TAG=Lib.class.getSimpleName();

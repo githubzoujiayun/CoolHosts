@@ -21,6 +21,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -193,7 +194,15 @@ public class CoolHosts extends Activity {
 			doNextTask();
 			break;
 		case 5:
-			Toast.makeText(this, R.string.note, Toast.LENGTH_SHORT).show();
+			final EditText et = new EditText(CoolHosts.this);
+			new AlertDialog.Builder(this).setTitle("请输入").setIcon(
+				     android.R.drawable.ic_dialog_info).setView(
+				    et).setPositiveButton("确定",new DialogInterface.OnClickListener() {
+				    	 public void onClick(DialogInterface dialog, int which) {
+				    		 Lib.SOURCE=et.getText().toString();
+				    		 Toast.makeText(CoolHosts.this, "Host源已经切换，仅此次有效，重启应用后恢复为默认的findspace的源", Toast.LENGTH_SHORT).show();
+				    	 }})
+				     .setNegativeButton("取消", null).show();
 			break;
 		case 6:
 			catHosts();
