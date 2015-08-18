@@ -35,13 +35,14 @@ public class CoolHosts extends Activity {
 	public static String CACHEDIR;
 	private WebView webView;
 	private WebDownloader downloadHostsTask;
+	private GetHostsVersion getHostsVersion;
     private ProgressBar progressBar;
 
 	public CheckCoolHostsVersion getVersion;
 	
 	private enum TASK
 	{
-		DOWNHOSTS,COPYNEWHOSTS,DELETEOLDHOSTS,GETURL,GETCLVERSION
+		DOWNHOSTS,COPYNEWHOSTS,DELETEOLDHOSTS,GETURL,GETCLVERSION,GETHOSTSVERSION
 	}
 	private Queue <TASK> taskQueue=null;
 	
@@ -59,6 +60,7 @@ public class CoolHosts extends Activity {
         
         taskQueue = new LinkedList<TASK>();
         downloadHostsTask=new WebDownloader(CoolHosts.this);
+        getHostsVersion=new GetHostsVersion(CoolHosts.this);
         webView.getSettings().setJavaScriptEnabled(true);//设置使用够执行JS脚本  
         webView.getSettings().setBuiltInZoomControls(false);//设置使支持缩放  
         webView.loadUrl("http://www.findspace.name");  
@@ -79,15 +81,6 @@ public class CoolHosts extends Activity {
                     String description, String failingUrl) {  
                 Toast.makeText(CoolHosts.this, "Oh no! " + description, Toast.LENGTH_SHORT).show();  
             }  
-//            public void onProgressChanged(WebView view, int newProgress) {
-//                Log.e("newProgress", newProgress+"");
-//                progressBar.setProgress(newProgress);
-//                if(newProgress >= 100){
-//                    progressBar.setVisibility(View.GONE);
-//                }
-//                super.onProgressChanged(view, newProgress);
-//            }
-//            
         });
         
 
@@ -113,7 +106,8 @@ public class CoolHosts extends Activity {
         
         
         
-        taskQueue.add(TASK.DOWNHOSTS);
+//        taskQueue.add(TASK.DOWNHOSTS);
+        taskQueue.add(TASK.GETHOSTSVERSION);
         taskQueue.add(TASK.GETURL);
         taskQueue.add(TASK.GETCLVERSION);
         doNextTask();
@@ -130,6 +124,7 @@ public class CoolHosts extends Activity {
 					Toast.makeText(CoolHosts.this, R.string.unrooted, Toast.LENGTH_SHORT).show();
 				}else{
 					if(getNetState()){
+						taskQueue.add(TASK.DOWNHOSTS);
 						taskQueue.add(TASK.DELETEOLDHOSTS);
 						taskQueue.add(TASK.COPYNEWHOSTS);
 						doNextTask();
@@ -140,21 +135,6 @@ public class CoolHosts extends Activity {
 				}
 			}
 		});
-//    	oneKey.setOnClickListener(new OnClickListener() {
-//    		@Override
-//    		public void onClick(View v) {
-//    			if(!root){
-//    				Toast.makeText(CoolHosts.this, R.string.unrooted, Toast.LENGTH_SHORT).show();
-//    			}else{
-//    				if(getNetState()){
-//    					
-//    				}else{
-//    					Toast.makeText(CoolHosts.this, R.string.neterror, Toast.LENGTH_SHORT).show();
-//    				}
-//    				
-//    			}
-//    		}
-//    	});
     }
     /**Update the console textview*/
     public void appendOnConsole(TextView textview,boolean isAppend,final int ...id ){
@@ -177,6 +157,7 @@ public class CoolHosts extends Activity {
 	public TextView getConsole(){return console;}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
+		//(groupip,itemid)
 		menu.add(0, 1, 0,R.string.help ).setIcon(R.drawable.help);
 		menu.add(0, 2, 1, R.string.about).setIcon(R.drawable.about);
 		menu.add(0,3,2,R.string.updatechversion);
@@ -266,6 +247,9 @@ public class CoolHosts extends Activity {
 			case GETCLVERSION:
 				new SendGetApplication(CoolHosts.this).execute(1);
 				break;
+			case GETHOSTSVERSION:
+				getHostsVersion.execute(Lib.HOSTS_VERSION_URL);
+				break;
 			default:
 				break;
 			
@@ -277,6 +261,7 @@ public class CoolHosts extends Activity {
 		Intent catIntent=new Intent(CoolHosts.this,CatHosts.class);
 		CoolHosts.this.startActivity(catIntent);
 	}
+	/**获取Hosts版本*/
 	
 }
 

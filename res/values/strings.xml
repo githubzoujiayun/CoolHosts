@@ -7,7 +7,7 @@
 	<string name="help">帮助(显示在应用里面)</string>
 	<string name="updatechversion">检查CoolHosts版本</string>
 	<string name="unrooted">CoolHosts尚未获得设备的Root权限</string>
-	 <string name="dialog_about"><b>CoolHosts</b>\n\n作者 Find\n\n在新浪微博上关注@FindSpace博客\n\n个人博客： www.findspace.name\n\n邮件： find@findspace.name\n\n</string>
+	 <string name="dialog_about"><b>CoolHosts</b>\n\n作者 Find\n\n在新浪微博上关注@FindSpace博客\n\n个人博客： www.findspace.name\n\n邮件： find@findspace.name\n\n感谢点击博客中的广告支持！\n</string>
 	<string name="local_version">本地版本：</string>
 	<string name="remote_version">服务器版本：</string>
 	<string name="tempstring"><b>正在获取服务器上的hosts文件…</b>若一直显示该信息,请检查网络连接或到博客反馈,为防止恶意抓取,限定了抓取频次.具体请访问博客查看</string>

@@ -14,6 +14,7 @@ import org.apache.http.util.ByteArrayBuffer;
 import android.os.AsyncTask;
 import android.util.Log;
 
+
 public class WebDownloader extends AsyncTask<String, Void, File>{
 	CoolHosts caller;
 	public WebDownloader(CoolHosts caller) {
@@ -32,6 +33,8 @@ public class WebDownloader extends AsyncTask<String, Void, File>{
             while ((current = bis.read()) != -1) {
                 baf.append((byte) current);
             }
+            
+            Log.d(CoolHosts.TAG, baf.toByteArray().toString());
             f = new File(CoolHosts.CACHEDIR, params[1]);
             FileOutputStream fos = new FileOutputStream(f);
             fos.write(baf.toByteArray());
@@ -46,16 +49,8 @@ public class WebDownloader extends AsyncTask<String, Void, File>{
 	@Override
     public void onPostExecute(File f) {
         if (f != null) {
-        		try {
-    				Lib.setRemoteVersion(f);
-    				caller.appendOnConsole(caller.getConsole(),false,caller.getString(R.string.local_version)+Lib.getlocalversion());
-    				caller.appendOnConsole(caller.getConsole(),true,caller.getString(R.string.remote_version)+Lib.getRemoteVersion());
-        			Log.d(CoolHosts.TAG, "download success");
-        			caller.setNetState(true);
-        			caller.doNextTask();
-        		} catch (IOException ioe) {
-        			ioe.printStackTrace();
-        		}
+			Log.d(CoolHosts.TAG, "download success");
+			caller.doNextTask();
         }
     }
 

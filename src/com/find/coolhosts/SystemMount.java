@@ -18,7 +18,6 @@ public class SystemMount {
 			fReader = new FileReader("/proc/mounts");
 			br = new BufferedReader(fReader);
 			String line = null;
-			int count = 0;
 
 			while ((line = br.readLine()) != null) {
 				if (line.contains("/system")) {

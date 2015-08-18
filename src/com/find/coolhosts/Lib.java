@@ -9,7 +9,8 @@ import java.io.IOException;
 import android.util.Log;
 
 public final class Lib {
-	static final String SOURCE="http://googleips-google.stor.sinaapp.com/hosts";
+	static final String SOURCE="http://googleips-google.stor.sinaapp.com/hosts2";
+	static final String HOSTS_VERSION_URL="http://googleips-google.stor.sinaapp.com/updateTime";
 	static final String REMOTEVERSION="";
 	private static final String TAG=Lib.class.getSimpleName();
 	static final String NOT_EXIST="Don't Exist.";
@@ -20,7 +21,7 @@ public final class Lib {
 	static String REMOTE_VERSION="";
 	static String LOCALCHVERSION="";
 	static String REMOTECHVERSION="";
-	
+	static final String EMPTH_STRING="";
 	//存在本地文件名
 	static final String HOSTSINCACHE="hosts";
 	
@@ -62,22 +63,7 @@ public final class Lib {
 		}
     	return versionText;
     }
-	public static void setRemoteVersion(File f) throws IOException{
-		try {
-			BufferedReader breader=new BufferedReader(new FileReader(f));
-			String line;
-			while((line=breader.readLine())!=null){
-				if(line.startsWith(Lib.TIMEMARK_HEAD)){
-					REMOTE_VERSION=line.substring(Lib.TIMEMARK_HEAD.length()+1);
-					break;
-				}
-			}
-			breader.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} 
 		
-	}
 	public static String getRemoteVersion(){
 		return REMOTE_VERSION;
 	}
